@@ -31,8 +31,17 @@ jobs:
       - name: Build
         run: dotnet build Ipco.slnx --configuration Release --no-restore
 
-      - name: Test
-        run: dotnet test Ipco.slnx --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+      - name: Test domain
+        run: dotnet test tests/Ipco.Domain.UnitTests/Ipco.Domain.UnitTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+
+      - name: Test patients module
+        run: dotnet test tests/Ipco.Modules.Patients.UnitTests/Ipco.Modules.Patients.UnitTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+
+      - name: Test architecture
+        run: dotnet test tests/Ipco.ArchitectureTests/Ipco.ArchitectureTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+
+      - name: Test API integration
+        run: dotnet test tests/Ipco.Api.IntegrationTests/Ipco.Api.IntegrationTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
 
       - name: Publish test results
         if: always()
