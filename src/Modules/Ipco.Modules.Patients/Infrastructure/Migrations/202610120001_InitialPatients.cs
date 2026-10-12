@@ -1,10 +1,7 @@
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ipco.Modules.Patients.Infrastructure.Migrations;
 
-[DbContext(typeof(PatientsDbContext))]
-[Migration("202610120001_InitialPatients")]
 public sealed partial class InitialPatients : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)
