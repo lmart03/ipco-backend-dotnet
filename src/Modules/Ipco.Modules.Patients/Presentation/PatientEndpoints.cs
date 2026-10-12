@@ -3,6 +3,9 @@ using Ipco.Application.Pagination;
 using Ipco.Modules.Patients.Application;
 using Ipco.Web.Contracts;
 using Ipco.Web.Problems;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace Ipco.Modules.Patients.Presentation;
 
