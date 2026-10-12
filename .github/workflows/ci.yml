@@ -50,9 +50,13 @@ jobs:
         shell: pwsh
         run: |
           dotnet tool restore
-          dotnet ef migrations add SnapshotProbe --project src/Modules/Ipco.Modules.Patients --startup-project src/Ipco.Api --context PatientsDbContext
-          $diff = git diff -- src/Modules/Ipco.Modules.Patients/Infrastructure/Migrations
-          $input = [Text.Encoding]::UTF8.GetBytes(($diff -join "`n"))
+          dotnet ef migrations add SnapshotProbe --project src/Modules/Ipco.Modules.Patients --startup-project src/Ipco.Api --context PatientsDbContext --output-dir Infrastructure/Migrations
+          $migrationFiles = Get-ChildItem "src/Modules/Ipco.Modules.Patients/Infrastructure/Migrations" -File
+          $content = foreach ($file in $migrationFiles) {
+            "===== $($file.Name) ====="
+            Get-Content $file.FullName -Raw
+          }
+          $input = [Text.Encoding]::UTF8.GetBytes(($content -join "`n"))
           $output = [IO.MemoryStream]::new()
           $gzip = [IO.Compression.GZipStream]::new($output, [IO.Compression.CompressionLevel]::Optimal, $true)
           $gzip.Write($input, 0, $input.Length)
