@@ -61,7 +61,7 @@ public sealed class PatientServiceTests
 
     private sealed class FixedUuidGenerator : IUuidGenerator
     {
-        public Guid NewId() => NewId;
+        public Guid NewId() => PatientServiceTests.NewId;
     }
 
     private sealed class FixedTimeProvider : TimeProvider
