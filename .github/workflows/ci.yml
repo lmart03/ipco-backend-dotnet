@@ -31,6 +31,13 @@ jobs:
       - name: Build
         run: dotnet build Ipco.slnx --configuration Release --no-restore
 
+      - name: Verify migration model
+        shell: pwsh
+        run: |
+          dotnet tool restore
+          $env:ConnectionStrings__IpcoDatabase = "Host=localhost;Database=ipco;Username=postgres;Password=postgres"
+          dotnet ef migrations has-pending-model-changes --project src/Modules/Ipco.Modules.Patients --startup-project src/Ipco.Api --context PatientsDbContext --no-build
+
       - name: Test domain
         run: dotnet test tests/Ipco.Domain.UnitTests/Ipco.Domain.UnitTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
 
@@ -44,26 +51,6 @@ jobs:
         id: api-integration-tests
         continue-on-error: true
         run: dotnet test tests/Ipco.Api.IntegrationTests/Ipco.Api.IntegrationTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
-
-      - name: Diagnose migration snapshot
-        if: steps.api-integration-tests.outcome == 'failure'
-        shell: pwsh
-        run: |
-          dotnet tool restore
-          $env:ConnectionStrings__IpcoDatabase = "Host=localhost;Database=ipco;Username=postgres;Password=postgres"
-          dotnet ef migrations add SnapshotProbe --project src/Modules/Ipco.Modules.Patients --startup-project src/Ipco.Api --context PatientsDbContext --output-dir Infrastructure/Migrations
-          $migrationFiles = Get-ChildItem "src/Modules/Ipco.Modules.Patients/Infrastructure/Migrations" -File
-          $content = foreach ($file in $migrationFiles) {
-            "===== $($file.Name) ====="
-            Get-Content $file.FullName -Raw
-          }
-          $input = [Text.Encoding]::UTF8.GetBytes(($content -join "`n"))
-          $output = [IO.MemoryStream]::new()
-          $gzip = [IO.Compression.GZipStream]::new($output, [IO.Compression.CompressionLevel]::Optimal, $true)
-          $gzip.Write($input, 0, $input.Length)
-          $gzip.Dispose()
-          $encoded = [Convert]::ToBase64String($output.ToArray())
-          Write-Output "::error title=Migration snapshot patch::$encoded"
 
       - name: Report API integration failures
         if: steps.api-integration-tests.outcome == 'failure'
