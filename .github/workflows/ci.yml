@@ -41,7 +41,21 @@ jobs:
         run: dotnet test tests/Ipco.ArchitectureTests/Ipco.ArchitectureTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
 
       - name: Test API integration
+        id: api-integration-tests
+        continue-on-error: true
         run: dotnet test tests/Ipco.Api.IntegrationTests/Ipco.Api.IntegrationTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+
+      - name: Report API integration failures
+        if: steps.api-integration-tests.outcome == 'failure'
+        shell: pwsh
+        run: |
+          $results = Select-Xml -Path "tests/Ipco.Api.IntegrationTests/TestResults/test-results.trx" -XPath "//*[local-name()='UnitTestResult' and @outcome='Failed']"
+          foreach ($result in $results) {
+            $name = $result.Node.testName
+            $message = $result.Node.Output.ErrorInfo.Message -replace '%', '%25' -replace "`r", '%0D' -replace "`n", '%0A'
+            Write-Output "::error title=$name::$message"
+          }
+          throw "API integration tests failed."
 
       - name: Publish test results
         if: always()
