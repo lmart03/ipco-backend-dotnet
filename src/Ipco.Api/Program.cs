@@ -16,7 +16,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddHealthChecks();
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddIpcoInfrastructure();
-builder.Services.AddPatientsModule(builder.Configuration);
+builder.Services.AddPatientsModule();
 
 var app = builder.Build();
 app.UseExceptionHandler();
