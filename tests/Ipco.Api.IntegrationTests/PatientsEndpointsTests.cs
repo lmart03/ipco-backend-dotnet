@@ -6,7 +6,8 @@ using Ipco.Web.Contracts;
 
 namespace Ipco.Api.IntegrationTests;
 
-public sealed class PatientsEndpointsTests(PatientsApiFactory factory) : IClassFixture<PatientsApiFactory>
+[Collection(ApiCollection.Name)]
+public sealed class PatientsEndpointsTests(PatientsApiFactory factory)
 {
     private readonly HttpClient _client = factory.CreateClient();
 

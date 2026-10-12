@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Ipco.Api.IntegrationTests;
 
-public sealed class ProblemDetailsTests : IClassFixture<WebApplicationFactory<Program>>
+[Collection(ApiCollection.Name)]
+public sealed class ProblemDetailsTests
 {
     private readonly HttpClient _client;
 

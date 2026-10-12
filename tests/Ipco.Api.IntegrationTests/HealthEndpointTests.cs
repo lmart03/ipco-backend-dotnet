@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Ipco.Api.IntegrationTests;
 
-public sealed class HealthEndpointTests : IClassFixture<WebApplicationFactory<Program>>
+[Collection(ApiCollection.Name)]
+public sealed class HealthEndpointTests
 {
     private readonly HttpClient _client;
     public HealthEndpointTests(WebApplicationFactory<Program> factory) => _client = factory.CreateClient();
