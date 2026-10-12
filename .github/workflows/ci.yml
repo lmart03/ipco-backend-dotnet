@@ -36,7 +36,7 @@ jobs:
         run: |
           dotnet tool restore
           $env:ConnectionStrings__IpcoDatabase = "Host=localhost;Database=ipco;Username=postgres;Password=postgres"
-          dotnet ef migrations has-pending-model-changes --project src/Modules/Ipco.Modules.Patients --startup-project src/Ipco.Api --context PatientsDbContext --no-build
+          dotnet ef migrations has-pending-model-changes --project src/Modules/Ipco.Modules.Patients --startup-project src/Ipco.Api --context PatientsDbContext --configuration Release --no-build
 
       - name: Test domain
         run: dotnet test tests/Ipco.Domain.UnitTests/Ipco.Domain.UnitTests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
