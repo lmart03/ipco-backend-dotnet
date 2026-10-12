@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NetArchTest.Rules" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Ipco.Api\Ipco.Api.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\Ipco.Domain\Ipco.Domain.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\Ipco.Application\Ipco.Application.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\Ipco.Infrastructure\Ipco.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Ipco.Modules.Patients\Ipco.Modules.Patients.csproj" />
+  </ItemGroup>
+
+</Project>

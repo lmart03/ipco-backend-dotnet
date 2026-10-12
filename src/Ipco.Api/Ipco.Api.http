@@ -1,0 +1,6 @@
+@Ipco.Api_HostAddress = http://localhost:5073
+
+GET {{Ipco.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

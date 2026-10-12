@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Ipco.Api/Ipco.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/Ipco.Application/Ipco.Application.csproj" />
+    <Project Path="src/BuildingBlocks/Ipco.Domain/Ipco.Domain.csproj" />
+    <Project Path="src/BuildingBlocks/Ipco.Infrastructure/Ipco.Infrastructure.csproj" />
+    <Project Path="src/BuildingBlocks/Ipco.Web/Ipco.Web.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/">
+    <Project Path="src/Modules/Ipco.Modules.Patients/Ipco.Modules.Patients.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ipco.Api.IntegrationTests/Ipco.Api.IntegrationTests.csproj" />
+    <Project Path="tests/Ipco.ArchitectureTests/Ipco.ArchitectureTests.csproj" />
+    <Project Path="tests/Ipco.Domain.UnitTests/Ipco.Domain.UnitTests.csproj" />
+    <Project Path="tests/Ipco.Modules.Patients.UnitTests/Ipco.Modules.Patients.UnitTests.csproj" />
+  </Folder>
+</Solution>
