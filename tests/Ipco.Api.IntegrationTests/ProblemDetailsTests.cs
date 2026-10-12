@@ -1,7 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Ipco.Api.IntegrationTests;
 
@@ -10,7 +9,7 @@ public sealed class ProblemDetailsTests
 {
     private readonly HttpClient _client;
 
-    public ProblemDetailsTests(WebApplicationFactory<Program> factory) => _client = factory.CreateClient();
+    public ProblemDetailsTests(PatientsApiFactory factory) => _client = factory.CreateClient();
 
     [Fact]
     public async Task UnknownRoute_ReturnsRfc9457ProblemDetails()

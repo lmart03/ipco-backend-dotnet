@@ -1,5 +1,4 @@
 using System.Net;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Ipco.Api.IntegrationTests;
 
@@ -7,7 +6,7 @@ namespace Ipco.Api.IntegrationTests;
 public sealed class HealthEndpointTests
 {
     private readonly HttpClient _client;
-    public HealthEndpointTests(WebApplicationFactory<Program> factory) => _client = factory.CreateClient();
+    public HealthEndpointTests(PatientsApiFactory factory) => _client = factory.CreateClient();
 
     [Fact]
     public async Task LiveHealth_WhenApplicationStarts_ReturnsOk()
